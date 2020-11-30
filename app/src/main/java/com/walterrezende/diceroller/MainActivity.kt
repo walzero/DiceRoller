@@ -1,10 +1,9 @@
 package com.walterrezende.diceroller
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,18 +13,30 @@ class MainActivity : AppCompatActivity() {
         setOnClickListeners()
     }
 
+    /***
+     * sets the necessary onClickListeners for activity_main
+     */
     private fun setOnClickListeners() {
-        findViewById<Button>(R.id.roll_button)?.setOnClickListener {
+        roll_button?.setOnClickListener {
             rollDice()
         }
     }
 
+    /***
+     * Gets a random dice face and shows it's image
+     */
     private fun rollDice() {
-        findViewById<ImageView>(R.id.dice_image)?.setImageResource(throwDice().getFace())
+        dice_image?.setImageResource(throwDice().getFace())
     }
 
+    /***
+     * Generates a random dice value based on all possible values
+     */
     private fun throwDice(): Dice = Dice.values().random()
 
+    /***
+     * extension function to get resourceId based on a Dice value
+     */
     private fun Dice.getFace() = this.resourceId
 
     private enum class Dice(@DrawableRes val resourceId: Int) {
