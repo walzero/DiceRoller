@@ -7,6 +7,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val diceValues by lazy { Dice.values() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -26,18 +28,18 @@ class MainActivity : AppCompatActivity() {
      * Gets a random dice face and shows it's image
      */
     private fun rollDice() {
-        dice_image?.setImageResource(throwDice().getFace())
+        dice_image?.setImageResource(throwDice().checkFace())
     }
 
     /***
      * Generates a random dice value based on all possible values
      */
-    private fun throwDice(): Dice = Dice.values().random()
+    private fun throwDice(): Dice = diceValues.random()
 
     /***
      * extension function to get resourceId based on a Dice value
      */
-    private fun Dice.getFace() = this.resourceId
+    private fun Dice.checkFace() = this.resourceId
 
     private enum class Dice(@DrawableRes val resourceId: Int) {
         OneDice(R.drawable.dice_1),
