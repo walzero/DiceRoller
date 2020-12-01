@@ -3,32 +3,32 @@ package com.walterrezende.diceroller
 import android.os.Bundle
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.databinding.DataBindingUtil
+import com.walterrezende.diceroller.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private val diceValues by lazy { Dice.values() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setOnClickListeners()
     }
 
     /***
      * sets the necessary onClickListeners for activity_main
      */
-    private fun setOnClickListeners() {
-        roll_button?.setOnClickListener {
-            rollDice()
-        }
+    private fun setOnClickListeners() = binding.run {
+        rollButton.setOnClickListener { rollDice() }
     }
 
     /***
      * Gets a random dice face and shows it's image
      */
-    private fun rollDice() {
-        dice_image?.setImageResource(throwDice().checkFace())
+    private fun rollDice() = binding.run {
+        diceImage.setImageResource(throwDice().checkFace())
     }
 
     /***
